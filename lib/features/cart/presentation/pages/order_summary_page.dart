@@ -34,6 +34,10 @@ class OrderSummaryPage extends StatefulWidget {
 
 class _OrderSummaryPageState extends State<OrderSummaryPage> {
   final _formKey = GlobalKey<FormState>();
+
+  bool get _allDigital => widget.cartItems.every(
+        (item) => item.type.toLowerCase() != 'paper' && item.type != 'مطبوع',
+      );
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -357,7 +361,7 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
                         '${S.of(context).price} ${pd.taxAmount.toStringAsFixed(2)}',
                       ),
                     ],
-                    if (pd.shippingCost > 0) ...[
+                    if (pd.shippingCost > 0 && !_allDigital) ...[
                       const SizedBox(height: 8),
                       _buildSummaryRow(
                         'تكلفة الشحن',
@@ -403,11 +407,13 @@ class _OrderSummaryPageState extends State<OrderSummaryPage> {
                     'الضريبة',
                     'تُحسب عند الطلب',
                   ),
-                  const SizedBox(height: 8),
-                  _buildSummaryRow(
-                    'تكلفة الشحن',
-                    'تُحسب عند الطلب',
-                  ),
+                  if (!_allDigital) ...[
+                    const SizedBox(height: 8),
+                    _buildSummaryRow(
+                      'تكلفة الشحن',
+                      'تُحسب عند الطلب',
+                    ),
+                  ],
                   const SizedBox(height: 12),
                   Divider(color: Colors.grey.shade200),
                   const SizedBox(height: 12),

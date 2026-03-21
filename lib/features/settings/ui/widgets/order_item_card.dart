@@ -100,13 +100,16 @@ class OrderItemCard extends StatelessWidget {
                       color: AppColors.textSecondary,
                     ),
                     const SizedBox(width: 4),
-                    Text(
-                      order.formattedDate,
-                      style: TextStyle(
-                        fontSize: isResponsive
-                            ? (context.isTablet ? 14.sp : 12.sp)
-                            : 12,
-                        color: AppColors.textSecondary,
+                    Flexible(
+                      child: Text(
+                        order.formattedDate,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: isResponsive
+                              ? (context.isTablet ? 14.sp : 12.sp)
+                              : 12,
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                     ),
                     if (order.payment != null) ...[
@@ -117,18 +120,10 @@ class OrderItemCard extends StatelessWidget {
                         color: AppColors.textSecondary,
                       ),
                       const SizedBox(width: 4),
-                      Text(
-                        order.payment!.method,
-                        style: TextStyle(
-                          fontSize: isResponsive
-                              ? (context.isTablet ? 14.sp : 12.sp)
-                              : 12,
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                      if (order.payment!.lastFour != null)
-                        Text(
-                          ' •••• ${order.payment!.lastFour}',
+                      Flexible(
+                        child: Text(
+                          '${order.payment!.method}${order.payment!.lastFour != null ? ' •••• ${order.payment!.lastFour}' : ''}',
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: isResponsive
                                 ? (context.isTablet ? 14.sp : 12.sp)
@@ -136,6 +131,7 @@ class OrderItemCard extends StatelessWidget {
                             color: AppColors.textSecondary,
                           ),
                         ),
+                      ),
                     ],
                   ],
                 ),
