@@ -27,10 +27,10 @@ class AppVersionManager {
       await Upgrader.clearSavedSettings(); // Clear cached settings
       await upgrader.initialize();
 
-      // final playStoreVersion = upgrader.currentAppStoreVersion;
-      final playStoreVersion = "1.0.3";
-      // final currentVersion = upgrader.currentInstalledVersion;
-      final currentVersion = "1.0.3";
+      final playStoreVersion = upgrader.currentAppStoreVersion;
+      // final playStoreVersion = "1.0.3";
+      final currentVersion = upgrader.currentInstalledVersion;
+      // final currentVersion = "1.0.3";
       log('App version: $currentVersion | Store version: $playStoreVersion');
 
       if (currentVersion == null) return false;
